@@ -1,25 +1,33 @@
 import pandas as pd
 import sys
 import os
+import openpyxl
 
-def load_data(path,data_extract,model):
-    df =pd.read_csv(path)
-    #print(df)
+def load_data(path,sheet ,data_extract ,model, column):
+    df =pd.read_excel(path, sheet_name=sheet)
+    df = df.sort_values(by='Local Authority name', key=lambda x: x.str.len())
+    df = df.reset_index(drop=True)
+    print(len(list(df.index)))
+    k =len(list(df.index))
     #print( df['Local Authority name'][1] )
-    model.insert(2, column=data_extract, value= None)
-    for n in range(0, 346):
-        loop(model , df, data_extract ,n)
+    model.insert(column , column=data_extract, value= None)
+    for n in range(0, 347):
+        loop(model , df, data_extract ,n ,k)
     #print(model)
+    column+=1
+    return model , column
 
-    return model
 
 
-
-def loop(model , df, data_extract ,n):
-    for i in range(0,429):
-        if model.values[n][0] == df['Local Authority code'][i] or str(model.values[n][1]) in str(df['Local Authority name'][i] ):
+def loop(model , df, data_extract ,n ,k):
+    for i in range(0,k):
+        if model.values[n][0] == df['Local Authority code'][i] or str.lower(model.values[n][1]) in str.lower(df['Local Authority name'][i] ):
 
             model.at[n,data_extract] = df[data_extract][i]
+            df.at[i,'Local Authority code'] = -999
+            df.at[i,'Local Authority name'] = 'NaN'
+            df = pd.DataFrame(data = df)
+            return df
 
             break
 
@@ -29,13 +37,18 @@ def loop(model , df, data_extract ,n):
 
 
 
-model = pd.read_csv('test.csv')
+model = pd.read_csv('base.csv')
+model = model.sort_values(by='Local Authority name', key=lambda x: x.str.len())
+model = model.reset_index(drop=True)
 
-print(model.values[0][1])
-load_data('Number_of_Schools_UK.csv','Violence with injury',model)
-#print(model)
+column=2
 
+model,column = load_data('Data/MATTHEW/crime_rate_by_Sep_2021_changed.xlsx','Table C2','Violence with injury',model, column)
+
+print(model)
+model,column = load_data('Data/ERIC/England_house_price_and_earning_statistics.xlsx','6c',2020,model, column)
+print(model)
 #result section
 
 
-model.to_csv("result.csv")
+#model.to_csv("result.csv")
