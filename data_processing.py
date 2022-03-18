@@ -21,7 +21,6 @@ def load_data(path,sheet ,data_extract ,model, column):
 def loop(model , df, data_extract ,n ,k):
     for i in range(0,k):
         if model.values[n][0] == df['Local Authority code'][i] or str.lower(model.values[n][1]) in str.lower(df['Local Authority name'][i] ):
-
             model.at[n,data_extract] = df[data_extract][i]
             df.at[i,'Local Authority code'] = -999
             df.at[i,'Local Authority name'] = 'NaN'

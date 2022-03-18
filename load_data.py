@@ -71,18 +71,19 @@ def load_house_price_and_earning_by_district():
 def load_council_tax_data():
     # Open the Council tax data set
     workbook = openpyxl.load_workbook('Data/ERIC/ENGLAND_council_tax_band_properties.xlsx')
-    
+
     # read columns that contains the lastest property counts for all bands (2021's) and administrative area names in England.
     council_tax_band = workbook['CTSOP4.0']
     council_tax_band = pd.DataFrame(council_tax_band.values)
     council_tax_band = council_tax_band.drop(labels=range(0,5), axis=0)
     council_tax_band = council_tax_band.drop(columns=range(council_tax_band.columns[6],council_tax_band.columns[31]))
-    council_tax_band = council_tax_band.drop(columns=range(council_tax_band.columns[0],council_tax_band.columns[4]))
+    council_tax_band = council_tax_band.drop(columns=range(council_tax_band.columns[0],council_tax_band.columns[3]))
     council_tax_band = pd.DataFrame(council_tax_band)
-    council_tax_band = council_tax_band.rename(columns={4:'area_name', 5:'band', 31:'number_of_properties'})
-    
+    council_tax_band = council_tax_band.rename(columns={3:'ecode',4:'area_name', 5:'band', 31:'number_of_properties'})
+
     # Extract the Area Name labels
     area_names = list(pd.unique(council_tax_band[:]['area_name']))
+    ecode = list(pd.unique(council_tax_band[:]['ecode']))
     
     # Extract the properties in each band.
     band_A = council_tax_band[council_tax_band["band"]=='A'].replace('-', 0) # A, Up to and including £40,000, tax charge £1,486.91
@@ -106,16 +107,16 @@ def load_council_tax_data():
     
     # 8 groups are too many for analysis, thus put them into four groups, catergorized by their valuations.
     # 0 ~ 52k, approximately the houses that are around 50k, mostly small flats or less favoured housing;
-    houses_above_0k = pd.DataFrame({'area_names':list(area_names),'property_counts':list((band_A+band_B).reshape(1,-1)[0])})
+    houses_above_0k = pd.DataFrame({'Local Authority code':list(ecode),'Local Authority name':list(area_names),'A_B_property_counts':list((band_A+band_B).reshape(1,-1)[0])})
     # 52 ~ 88k, around 100k, low-average standard;
-    houses_above_52k = pd.DataFrame({'area_names':area_names,'property_counts':list((band_C+band_D).reshape(1,-1)[0])})
+    houses_above_52k = pd.DataFrame({'Local Authority code':list(ecode),'Local Authority name':area_names,'C_D_property_counts':list((band_C+band_D).reshape(1,-1)[0])})
     # 88k ~ 160k, from 100k to 150k, high-average standard;
-    houses_above_88k = pd.DataFrame({'area_names':area_names,'property_counts':list((band_E+band_F).reshape(1,-1)[0])})
+    houses_above_88k = pd.DataFrame({'Local Authority code':list(ecode),'Local Authority name':area_names,'E_F_property_counts':list((band_E+band_F).reshape(1,-1)[0])})
     # 160k above, above 150k, more or less luxury houses;
-    houses_above_160k = pd.DataFrame({'area_names':area_names,'property_counts':list((band_G+band_H).reshape(1,-1)[0])})
+    houses_above_160k = pd.DataFrame({'Local Authority code':list(ecode),'Local Authority name':area_names,'G_H_property_counts':list((band_G+band_H).reshape(1,-1)[0])})
     
     # A data set to combine all bands
-    council_tax_band_all = pd.DataFrame({'area_names':list(area_names),'A':list(band_A),'B':list(band_B)
+    council_tax_band_all = pd.DataFrame({'Local Authority code':list(ecode),'area_names':list(area_names),'A':list(band_A),'B':list(band_B)
                                          ,'C':list(band_C),'D':list(band_D)
                                          ,'E':list(band_E),'F':list(band_F),
                                         'G':list(band_G),'H':list(band_H)})
