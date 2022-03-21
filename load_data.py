@@ -138,3 +138,57 @@ def load_homeless_demographic():
     
     return hl_demographic
 
+def load_processed_general_data():
+    workbook = pd.ExcelFile('revised_all_in_one.xlsx')
+    worksheet = workbook.parse(workbook.sheet_names[1])
+    worksheet.index = list(range(0,len(list(worksheet['Numbering']))))
+    worksheet = worksheet.drop(labels='Numbering',axis = 1)
+    
+    # Area Name
+    local_authority_names = worksheet['Local Authority name']
+    
+    # Housing prices data in Pound Sterling;
+    median_houses_2020 = worksheet['median_houses_2020']
+    lower_quatile_houses_2020 = worksheet['lower_quatile_houses_2020']
+    
+    # Valuation of the Properties;
+    A_B_property_counts = worksheet['A_B_property_counts'] 
+    C_D_property_counts = worksheet['C_D_property_counts']
+    E_F_property_counts = worksheet['E_F_property_counts']
+    G_H_property_counts = worksheet['G_H_property_counts']
+    
+    return median_houses_2020,lower_quatile_houses_2020,A_B_property_counts,C_D_property_counts,E_F_property_counts,G_H_property_counts,local_authority_names
+
+def load_processed_society_data():
+    workbook = pd.ExcelFile('revised_all_in_one.xlsx')
+    worksheet = workbook.parse(workbook.sheet_names[1])
+    worksheet.index = list(range(0,len(list(worksheet['Numbering']))))
+    worksheet = worksheet.drop(labels='Numbering',axis = 1)
+    
+    # Earning and Affordablity Ratio data;
+    lower_quatile_earning_2020 = worksheet['lower_quatile_earning_2020']
+    ratio_by_lower_quatile_2020 = worksheet['ratio_by_lower_quatile_2020']
+    median_earning_2020 = worksheet['median_earning_2020']
+    ratio_by_medians_2020 = worksheet['ratio_by_medians_2020']
+    
+    # Society issues;
+    total_threaten_homeless = worksheet['Total_Threaten_or_is_Homeless']
+    violence_crime = worksheet['Violence with injury']
+    return lower_quatile_earning_2020,ratio_by_lower_quatile_2020,median_earning_2020,median_earning_2020,ratio_by_medians_2020
+    
+def load_processed_quality_of_life_data():
+    workbook = pd.ExcelFile('revised_all_in_one.xlsx')
+    worksheet = workbook.parse(workbook.sheet_names[1])
+    worksheet.index = list(range(0,len(list(worksheet['Numbering']))))
+    worksheet = worksheet.drop(labels='Numbering',axis = 1)
+    
+    # Drivers and Taxi
+    taxi_only_licensed_drivers = worksheet['Taxi_only_licensed_drivers']
+    total_drivers = worksheet['total_drivers']
+    
+    # Size of Different Service Sectors
+    retail_sector_size = worksheet['Retail']
+    education_sector_size = worksheet['Education']
+    health_sector_size = worksheet['Health']
+    art_and_entertainment_sector_size = worksheet['Arts, entertainment, recreation & other services']
+    return taxi_only_licensed_drivers,total_drivers,education_sector_size,health_sector_size,art_and_entertainment_sector_size
