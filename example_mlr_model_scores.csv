@@ -1,12 +1,12 @@
 ,Scores
-A_B_property_counts,-0.1593076702123133
-C_D_property_counts,0.017131436666616203
-E_F_property_counts,-0.13372850903254072
-G_H_property_counts,0.31114445046800526
-ratio_by_lower_quatile,0.29040811118175774
-ratio_by_medians,0.3193689883838655
-Taxi_only_licensed_drivers,0.020004361279285038
-total_drivers,-0.008793052033875126
-Education,0.2138840795633298
-Health,-0.10557824766107173
-"Arts, entertainment, recreation & other services",0.061856295633466986
+A to B band property counts,-0.12522850451925854
+C D property counts,0.008227065408696863
+E F property counts,-0.09118355703911385
+G H property counts,0.32592074245732516
+ratio by lower quatile,0.4089525268433968
+ratio by medians,0.21901304621378653
+Taxi only licensed drivers,-0.0013169532705825154
+total drivers,-0.010575605909590073
+Education,0.20909349632812219
+Health,-0.083136119018858
+"Arts, entertainment, recreation & other services",0.002348482458874665
