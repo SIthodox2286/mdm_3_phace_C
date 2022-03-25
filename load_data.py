@@ -141,8 +141,7 @@ def load_homeless_demographic():
 def load_processed_general_data():
     workbook = pd.ExcelFile('revised_all_in_one.xlsx')
     worksheet = workbook.parse(workbook.sheet_names[1])
-    worksheet.index = list(range(0,len(list(worksheet['Numbering']))))
-    worksheet = worksheet.drop(labels='Numbering',axis = 1)
+    #worksheet.index = list(range(0,len(list(worksheet['Local Authority code']))))
     
     # Area Name
     local_authority_names = worksheet['Local Authority name']
@@ -162,8 +161,7 @@ def load_processed_general_data():
 def load_processed_society_data():
     workbook = pd.ExcelFile('revised_all_in_one.xlsx')
     worksheet = workbook.parse(workbook.sheet_names[1])
-    worksheet.index = list(range(0,len(list(worksheet['Numbering']))))
-    worksheet = worksheet.drop(labels='Numbering',axis = 1)
+    #worksheet.index = list(range(0,len(list(worksheet['Local Authority code']))))
     
     # Earning and Affordablity Ratio and rent:
     lower_quatile_earning_2020 = worksheet['lower_quatile_earning_2020']
@@ -182,8 +180,12 @@ def load_processed_society_data():
     damage_arson_crime_ratio = worksheet['Criminal damage and arson ratio']
     drug_crime_ratio = worksheet['Drug offences ratio']
     other_crime_ratio = worksheet['Other Crime Ratio']
+    
+    employment_data = worksheet['Total Employee All (thousands)']
+    male_life_expectency = worksheet['Male life expectancy at birth (2012/2020)4']
+    female_life_expectency = worksheet['Female life expectancy at birth (2020)4']
 
-    total_households_2020 = worksheet['total_households_projected_2020']
+    total_households_2020 = worksheet['total_hoseholds_projected_2020']
     households_with_children_ratio = worksheet['Year 2020: Households with dependent children ratio']
     one_female_households_ratio = worksheet['Year 2020: One person households: Female ratio']
     one_male_households_ratio = worksheet['Year 2020: One person households: Male ratio']
@@ -196,13 +198,12 @@ def load_processed_society_data():
     total_population_2020 = worksheet['POP All ages']
     size_of_la_area = worksheet['Total area as at 31 December 2020 (Hectares)']
     
-    return worksheet,lower_quatile_earning_2020,ratio_by_lower_quatile_2020,median_earning_2020,ratio_by_medians_2020,month_rent_higher_quatile,month_rent_lower_quatile,total_threaten_homeless,violence_crime_ratio,sexual_crime_ratio,robbery_crime_ratio,theft_crime_ratio,damage_arson_crime_ratio,drug_crime_ratio,other_crime_ratio,total_households_2020,households_with_children_ratio,one_female_households_ratio,one_male_households_ratio,pop_under_10_ratio,pop_teenager_ratio,pop_20_39_ratio,pop_40_60_ratio,pop_60_80_ratio,pop_80_90_ratio,total_population_2020,size_of_la_area
+    return worksheet,lower_quatile_earning_2020,ratio_by_lower_quatile_2020,median_earning_2020,ratio_by_medians_2020,month_rent_higher_quatile,month_rent_lower_quatile,total_threaten_homeless,violence_crime_ratio,sexual_crime_ratio,robbery_crime_ratio,theft_crime_ratio,damage_arson_crime_ratio,drug_crime_ratio,other_crime_ratio,employment_data,male_life_expectency,female_life_expectency,total_households_2020,households_with_children_ratio,one_female_households_ratio,one_male_households_ratio,pop_under_10_ratio,pop_teenager_ratio,pop_20_39_ratio,pop_40_60_ratio,pop_60_80_ratio,pop_80_90_ratio,total_population_2020,size_of_la_area
     
 def load_processed_quality_of_life_data():
     workbook = pd.ExcelFile('revised_all_in_one.xlsx')
     worksheet = workbook.parse(workbook.sheet_names[1])
-    worksheet.index = list(range(0,len(list(worksheet['Numbering']))))
-    worksheet = worksheet.drop(labels='Numbering',axis = 1)
+    #worksheet.index = list(range(0,len(list(worksheet['Local Authority code']))))
     
     # Drivers and Taxi
     taxi_only_licensed_drivers = worksheet['Taxi_only_licensed_drivers']
@@ -214,4 +215,4 @@ def load_processed_quality_of_life_data():
     health_sector_size = worksheet['Health']
     art_and_entertainment_sector_size = worksheet['Arts, entertainment, recreation & other services']
     
-    return taxi_only_licensed_drivers,total_drivers,education_sector_size,health_sector_size,art_and_entertainment_sector_size
+    return taxi_only_licensed_drivers,total_drivers,education_sector_size,health_sector_size,art_and_entertainment_sector_size,retail_sector_size
