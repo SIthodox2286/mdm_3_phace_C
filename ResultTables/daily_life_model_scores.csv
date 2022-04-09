@@ -1,11 +1,11 @@
 ,RF Importance
-health_sector_size_ratio_to_households,0.1101812440708257
-retail_sector_size_ratio_to_households,0.06844062401640931
-taxi_only_licensed_drivers_ratio_to_households,0.020296777879030455
-total_drivers_ratio_to_households,0.047711614465293
-A_B_property_counts,0.12882102554582484
-C_D_property_counts,0.07776611069315865
-E_F_property_counts,0.13052112493847734
-G_H_property_counts,0.126740436555141
-Male life expectancy at birth (2012/2020)4,0.13674631289809278
-Female life expectancy at birth (2020)4,0.15277472893774702
+health_sector_size_ratio_to_households,0.110181244
+retail_sector_size_ratio_to_households,0.068440624
+taxi_only_licensed_drivers_ratio_to_households,0.020296778
+total_drivers_ratio_to_households,0.047711614
+A_B_property_counts,0.128821026
+C_D_property_counts,0.077766111
+E_F_property_counts,0.130521125
+G_H_property_counts,0.126740437
+Male life expectancy at birth (2012/2020)4,0.136746313
+Female life expectancy at birth (2020)4,0.152774729
